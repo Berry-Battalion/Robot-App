@@ -14,6 +14,7 @@
       {{device.name}}
     </ion-item>
     <button ion-button block (click)="disconnect()">Disconnect</button>
+    <button *ngIf="isDeviceConnected" ion-button block (click)="bluetoothWrite()">Send Hello World</button>
     <ion-list-header>
       availlable Devices
     </ion-list-header>

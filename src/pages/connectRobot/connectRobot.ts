@@ -12,6 +12,8 @@ export class ConnectRobotPage {
   unpairedDevices: any;
   pairedDevices: any;
   gettingDevices: Boolean;
+  deviceConnected: string;
+  isDeviceConnected: boolean;
 
   constructor(public navCtrl: NavController, private bluetoothSerial: BluetoothSerial, private alertCtrl: AlertController) {
     bluetoothSerial.enable();
@@ -58,6 +60,8 @@ export class ConnectRobotPage {
         {
           text: 'Connect',
           handler: () => {
+            this.deviceConnected = address;
+            this.isDeviceConnected = true;
             this.bluetoothSerial.connect(address).subscribe(this.success, this.fail);
           }
         }
@@ -65,6 +69,10 @@ export class ConnectRobotPage {
     });
     alert.present();
 
+  }
+
+  bluetoothWrite() {
+    this.bluetoothSerial.write('Hello World');
   }
 
   disconnect() {
@@ -82,6 +90,8 @@ export class ConnectRobotPage {
         {
           text: 'Disconnect',
           handler: () => {
+            this.isDeviceConnected = false;
+            this.deviceConnected = '';
             this.bluetoothSerial.disconnect();
           }
         }
